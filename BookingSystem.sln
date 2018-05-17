@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingSystem.DAL", "Bookin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingSystem.Tests", "BookingSystem.Tests\BookingSystem.Tests.csproj", "{8EDF4429-251A-416D-BB68-93F227191BCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingSystem.BL", "BookingSystem.BL\BookingSystem.BL.csproj", "{8FDD7DD5-E0E3-4E72-9AF9-4521FBBCAB1C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingSystem.BLL", "BookingSystem.BL\BookingSystem.BLL.csproj", "{8FDD7DD5-E0E3-4E72-9AF9-4521FBBCAB1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

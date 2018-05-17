@@ -42,9 +42,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BookingSystem.BL\BookingSystem.BL.csproj">
+    <ProjectReference Include="..\BookingSystem.BL\BookingSystem.BLL.csproj">
       <Project>{8fdd7dd5-e0e3-4e72-9af9-4521fbbcab1c}</Project>
-      <Name>BookingSystem.BL</Name>
+      <Name>BookingSystem.BLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\BookingSystem.DAL\BookingSystem.DAL.csproj">
       <Project>{159E4DBC-0B34-4B29-B0A5-0FD70A2D04DB}</Project>
