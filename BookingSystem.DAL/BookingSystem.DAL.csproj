@@ -42,9 +42,10 @@
   <ItemGroup>
     <Compile Include="Domain\Airport.cs" />
     <Compile Include="Domain\Flight.cs" />
-    <Compile Include="Domain\IRepository.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Domain\Order.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AdoNetAirportRepository.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

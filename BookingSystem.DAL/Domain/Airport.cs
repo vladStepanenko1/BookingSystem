@@ -14,8 +14,9 @@ namespace BookingSystem.DAL.Domain
         public string Country { get; set; }
         public List<Flight> Flights { get; set; }
 
-        public Airport(string name, string address, string country)
+        public Airport(int id, string name, string address, string country)
         {
+            Id = id;
             Name = name;
             Address = address;
             Country = country;

@@ -36,11 +36,20 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BookingSystem.BL\BookingSystem.BL.csproj">
+      <Project>{8fdd7dd5-e0e3-4e72-9af9-4521fbbcab1c}</Project>
+      <Name>BookingSystem.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BookingSystem.DAL\BookingSystem.DAL.csproj">
+      <Project>{159E4DBC-0B34-4B29-B0A5-0FD70A2D04DB}</Project>
+      <Name>BookingSystem.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
