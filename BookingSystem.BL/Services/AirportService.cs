@@ -3,9 +3,6 @@ using BookingSystem.DAL.Domain;
 using BookingSystem.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingSystem.BL.Services
 {
@@ -20,27 +17,48 @@ namespace BookingSystem.BL.Services
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            Airport airport = _airportRepository.Get(id);
+            if (airport == null)
+            {
+                throw new Exception($"Airport with id = {id} not found");
+            }
+            _airportRepository.Remove(id);
         }
 
         public void Edit(int id, string name, string address, string country)
         {
-            throw new NotImplementedException();
+            Airport airport = _airportRepository.Get(id);
+            if (airport == null)
+            {
+                throw new Exception($"Airport with id = {id} not found");
+            }
+            Airport newAirport = new Airport(id, name, address, country);
+            _airportRepository.Update(newAirport);
         }
 
         public Airport Get(int id)
         {
-            throw new NotImplementedException();
+            Airport airport = _airportRepository.Get(id);
+            if(airport == null)
+            {
+                throw new Exception($"Airport with id = {id} not found");
+            }
+            return airport;
         }
 
         public IEnumerable<Airport> GetAll()
         {
-            throw new NotImplementedException();
+            return _airportRepository.GetAll();
         }
 
         public void Save(int id, string name, string address, string country)
         {
-            throw new NotImplementedException();
+            Airport airport = _airportRepository.Get(id);
+            if(airport != null)
+            {
+                throw new Exception($"Airport with id = {id} already exists");
+            }
+            _airportRepository.Add(new Airport(id, name, address, country));
         }
     }
 }
