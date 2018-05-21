@@ -7,8 +7,6 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingSystem.Tests
 {
@@ -40,6 +38,73 @@ namespace BookingSystem.Tests
             IAirportService airportService = new AirportService(mockRepository.Object);
             var airport = airportService.Get(airportId);
             Assert.AreEqual(airportName, airport.Name);
+        }
+
+        [Test]
+        public void Get_GivenNonExistentId_ThrowsAnException()
+        {
+            var mockRepository = new Mock<IRepository<Airport>>();
+            mockRepository.Setup(m => m.Get(It.IsAny<Int32>())).Returns(() => null);
+            IAirportService airportService = new AirportService(mockRepository.Object);
+            Assert.Throws<Exception>(() => airportService.Get(-1));
+        }
+
+        [Test]
+        public void Save_GivenExistentAirportId_ThrowsAnException()
+        {
+            var mockRepository = new Mock<IRepository<Airport>>();
+            mockRepository.Setup(m => m.Get(It.IsAny<Int32>())).Returns(new Airport(1, "airport1", "address1", "country1"));
+            IAirportService airportService = new AirportService(mockRepository.Object);
+            Assert.Throws<Exception>(() => airportService.Save(1, "airport", "address", "country"));
+        }
+
+        [Test]
+        public void Save_GivenNonExistentId_ShouldInvokeAddInRepository()
+        {
+            var mockRepository = new Mock<IRepository<Airport>>();
+            mockRepository.Setup(m => m.Get(It.IsAny<Int32>())).Returns(() => null);
+            IAirportService airportService = new AirportService(mockRepository.Object);
+            airportService.Save(1, "airport", "address", "country");
+            mockRepository.Verify(m => m.Add(It.IsAny<Airport>()), Times.Once);
+        }
+
+        [Test]
+        public void Edit_GivenNonExistentAirportId_ThrowsAnException()
+        {
+            var mockRepository = new Mock<IRepository<Airport>>();
+            mockRepository.Setup(m => m.Get(It.IsAny<Int32>())).Returns(() => null);
+            IAirportService airportService = new AirportService(mockRepository.Object);
+            Assert.Throws<Exception>(() => airportService.Edit(1, "airport", "address", "country"));
+        }
+
+        [Test]
+        public void Edit_GivenExistentAirportId_ShouldInvokeUpdateInRepository()
+        {
+            var mockRepository = new Mock<IRepository<Airport>>();
+            mockRepository.Setup(m => m.Get(It.IsAny<Int32>())).Returns(new Airport(1, "airport", "address", "country"));
+            IAirportService airportService = new AirportService(mockRepository.Object);
+            airportService.Edit(1, "newAirport", "address", "country");
+            mockRepository.Verify(m => m.Update(It.IsAny<Airport>()), Times.Once);
+        }
+
+        [Test]
+        public void Delete_GivenNonExistentAirportId_ThrowsAnException()
+        {
+            var mockRepository = new Mock<IRepository<Airport>>();
+            mockRepository.Setup(m => m.Get(It.IsAny<Int32>())).Returns(() => null);
+            IAirportService airportService = new AirportService(mockRepository.Object);
+            Assert.Throws<Exception>(() => airportService.Delete(1));
+        }
+
+        [Test]
+        public void Delete_GivenExistentAirportId_ShouldInvokeRemoveInRepository()
+        {
+            var mockRepository = new Mock<IRepository<Airport>>();
+            mockRepository.Setup(m => m.Get(It.IsAny<Int32>())).Returns(new Airport(1, "airport", "address", "country"));
+            IAirportService airportService = new AirportService(mockRepository.Object);
+            int airportId = 1;
+            airportService.Delete(airportId);
+            mockRepository.Verify(m => m.Remove(airportId), Times.Once);
         }
     }
 }
