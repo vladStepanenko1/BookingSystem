@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<h2>Airports</h2>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Country</th>
+    </tr>
+    @foreach(var airport in Model)
+    {
+    <tr>
+        <td>@airport.Id</td>
+        <td>@airport.Name</td>
+        <td>@airport.Address</td>
+        <td>@airport.Country</td>
+    </tr>
+    }
+</table>
