@@ -1,8 +1,10 @@
-﻿using BookingSystem.BL.Interfaces;
-using BookingSystem.DAL.Domain;
+﻿using BookingSystem.BL.DTO;
+using BookingSystem.BL.Interfaces;
+using BookingSystem.DAL.EF.Models;
 using BookingSystem.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BookingSystem.BL.Services
 {
@@ -15,19 +17,53 @@ namespace BookingSystem.BL.Services
             unitOfWork = uow;
         }
 
-        public Airport Get(int id)
+        public AirportDTO Get(int id)
         {
             Airport airport = unitOfWork.Airports.Get(id);
             if(airport == null)
             {
                 throw new Exception($"Airport with id = {id} not found");
             }
-            return airport;
+
+            return new AirportDTO
+            {
+                Id = airport.AirportId,
+                Name = airport.Name,
+                Address = airport.Address,
+                Country = airport.Country
+            };
         }
 
-        public IEnumerable<Airport> GetAll()
+        public IEnumerable<AirportDTO> GetAll()
         {
-            return unitOfWork.Airports.GetAll();
+            return unitOfWork.Airports.GetAll().Select(x => new AirportDTO
+            {
+                Id = x.AirportId,
+                Name = x.Name,
+                Address = x.Address,
+                Country = x.Country,
+                Flights = x.Flights.Select(f => new FlightDTO
+                {
+                    Id = f.FlightId,
+                    ArrivalPoint = new AirportDTO
+                    {
+                        Id = f.ArrivalPoint.AirportId,
+                        Name = f.ArrivalPoint.Name,
+                        Address = f.ArrivalPoint.Address,
+                        Country = f.ArrivalPoint.Country,
+                    },
+                    DeparturePoint = new AirportDTO
+                    {
+                        Id = f.DeparturePoint.AirportId,
+                        Name = f.DeparturePoint.Name,
+                        Address = f.DeparturePoint.Address,
+                        Country = f.DeparturePoint.Country,
+                    },
+                    ArrivalTime = f.ArrivalTime,
+                    DepartureTime = f.DepartureTime,
+                    Price = f.Price
+                })
+            });
         }
 
         public void Save(int id, string name, string address, string country)
@@ -37,7 +73,7 @@ namespace BookingSystem.BL.Services
             {
                 throw new Exception($"Airport with id = {id} already exists");
             }
-            unitOfWork.Airports.Add(new Airport(id, name, address, country));
+            unitOfWork.Airports.Add(new Airport { AirportId = id, Name = name, Address = address, Country = country });
             unitOfWork.Save();
         }
 
@@ -48,7 +84,7 @@ namespace BookingSystem.BL.Services
             {
                 throw new Exception($"Airport with id = {id} not found");
             }
-            Airport newAirport = new Airport(id, name, address, country);
+            Airport newAirport = new Airport { AirportId = id, Address = address, Name = name, Country = country };
             unitOfWork.Airports.Update(newAirport);
             unitOfWork.Save();
         }

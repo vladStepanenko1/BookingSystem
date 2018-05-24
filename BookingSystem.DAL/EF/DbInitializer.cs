@@ -1,4 +1,4 @@
-﻿using BookingSystem.DAL.Domain;
+﻿using BookingSystem.DAL.EF.Models;
 using System.Data.Entity;
 
 namespace BookingSystem.DAL.EF
@@ -7,9 +7,9 @@ namespace BookingSystem.DAL.EF
     {
         protected override void Seed(AirportContext context)
         {
-            context.Airports.Add(new Airport(1, "Airport1", "Address1", "Country1"));
-            context.Airports.Add(new Airport(2, "Airport2", "Address2", "Country2"));
-            context.Airports.Add(new Airport(3, "Airport3", "Address3", "Country3"));
+            context.Airports.Add(new Airport { Name = "Airport1", Address = "Address1", Country = "Country1" });
+            context.Airports.Add(new Airport { Name = "Airport2", Address = "Address2", Country = "Country2" });
+            context.Airports.Add(new Airport { Name = "Airport3", Address = "Address3", Country = "Country3" });
             context.SaveChanges();
         }
     }

@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\AirportDTO.cs" />
+    <Compile Include="DTO\FlightDTO.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Interfaces\IAirportService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

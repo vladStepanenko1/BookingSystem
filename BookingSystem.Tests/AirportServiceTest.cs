@@ -1,6 +1,6 @@
 ﻿using BookingSystem.BL.Interfaces;
 using BookingSystem.BL.Services;
-using BookingSystem.DAL.Domain;
+using BookingSystem.DAL.EF.Models;
 using BookingSystem.DAL.Interfaces;
 using Moq;
 using NUnit.Framework;

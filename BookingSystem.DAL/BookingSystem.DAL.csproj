@@ -51,6 +51,9 @@
     <Compile Include="Domain\Flight.cs" />
     <Compile Include="EF\AirportContext.cs" />
     <Compile Include="EF\DbInitializer.cs" />
+    <Compile Include="EF\Models\Airport.cs" />
+    <Compile Include="EF\Models\Flight.cs" />
+    <Compile Include="EF\Models\Order.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Domain\Order.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />

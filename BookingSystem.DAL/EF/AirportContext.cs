@@ -1,4 +1,4 @@
-﻿using BookingSystem.DAL.Domain;
+﻿using BookingSystem.DAL.EF.Models;
 using System.Data.Entity;
 
 namespace BookingSystem.DAL.EF
