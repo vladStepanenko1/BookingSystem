@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<BookingSystem.Web.Models.AirportViewModel>
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -17,6 +19,9 @@
         <td>@airport.Name</td>
         <td>@airport.Address</td>
         <td>@airport.Country</td>
+        <td>@Html.ActionLink("Show", "Show", new { id = airport.Id })</td>
+        <td>@Html.ActionLink("Edit", "Edit", new { id = airport.Id })</td>
+        <td>@Html.ActionLink("Delete", "Delete", new { id = airport.Id })</td>
     </tr>
     }
 </table>
