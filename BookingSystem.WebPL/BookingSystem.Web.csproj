@@ -246,7 +246,7 @@
       <Name>BookingSystem.BLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\BookingSystem.DAL\BookingSystem.DAL.csproj">
-      <Project>{159E4DBC-0B34-4B29-B0A5-0FD70A2D04DB}</Project>
+      <Project>{159e4dbc-0b34-4b29-b0a5-0fd70a2d04db}</Project>
       <Name>BookingSystem.DAL</Name>
     </ProjectReference>
   </ItemGroup>

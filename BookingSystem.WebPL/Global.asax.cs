@@ -22,20 +22,20 @@ namespace BookingSystem.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             string connectionString = GetConnectionString();
-            NinjectModule repositoryModule = new RepositoryModule(connectionString);
+            NinjectModule serviceModule = new ServiceModule(connectionString);
             NinjectModule airportModule = new AirportModule();
-            var kernel = new StandardKernel(repositoryModule, airportModule);
+            var kernel = new StandardKernel(serviceModule, airportModule);
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }
 
         private string GetConnectionString()
         {
             Configuration rootWebConfig = WebConfigurationManager.OpenWebConfiguration("/BookingSystem.WebPL");
-            ConnectionStringSettings cnnString = null;
+            ConnectionStringSettings cnnStringObject = null;
             if (rootWebConfig.ConnectionStrings.ConnectionStrings.Count > 0)
             {
-                cnnString = rootWebConfig.ConnectionStrings.ConnectionStrings["Connection1"];
-                if (cnnString == null)
+                cnnStringObject = rootWebConfig.ConnectionStrings.ConnectionStrings["Connection1"];
+                if (cnnStringObject == null)
                 {
                     throw new Exception("Connection string is null");
                 }
@@ -44,7 +44,7 @@ namespace BookingSystem.Web
             {
                 throw new Exception("Does not any connection strings");
             }
-            return cnnString.ConnectionString;
+            return cnnStringObject.ConnectionString;
         }
     }
 }

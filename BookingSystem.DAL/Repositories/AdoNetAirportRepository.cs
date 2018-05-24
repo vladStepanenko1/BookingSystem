@@ -82,7 +82,7 @@ namespace BookingSystem.DAL.Repositories
             return airport;
         }
 
-        public List<Airport> GetAll()
+        public IEnumerable<Airport> GetAll()
         {
             string sql = "select * from Airports";
             List<Airport> airports = new List<Airport>();

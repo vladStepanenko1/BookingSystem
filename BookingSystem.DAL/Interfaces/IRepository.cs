@@ -4,7 +4,7 @@ namespace BookingSystem.DAL.Interfaces
 {
     public interface IRepository<T>
     {
-        List<T> GetAll();
+        IEnumerable<T> GetAll();
         T Get(int id);
         void Add(T entity);
         void Update(T entity);
