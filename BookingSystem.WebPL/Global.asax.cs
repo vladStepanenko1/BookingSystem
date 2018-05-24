@@ -21,8 +21,8 @@ namespace BookingSystem.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //string connectionString = GetConnectionString();
-            NinjectModule serviceModule = new ServiceModule("ConnectionEF");
+            string connectionString = GetConnectionString();
+            NinjectModule serviceModule = new ServiceModule(connectionString);
             NinjectModule airportModule = new AirportModule();
             var kernel = new StandardKernel(serviceModule, airportModule);
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
@@ -34,7 +34,7 @@ namespace BookingSystem.Web
             ConnectionStringSettings cnnStringObject = null;
             if (rootWebConfig.ConnectionStrings.ConnectionStrings.Count > 0)
             {
-                cnnStringObject = rootWebConfig.ConnectionStrings.ConnectionStrings["Connection1"];
+                cnnStringObject = rootWebConfig.ConnectionStrings.ConnectionStrings["ConnectionEF"];
                 if (cnnStringObject == null)
                 {
                     throw new Exception("Connection string is null");
