@@ -8,37 +8,16 @@ namespace BookingSystem.BL.Services
 {
     public class AirportService : IAirportService
     {
-        private IRepository<Airport> _airportRepository;
+        private IUnitOfWork unitOfWork;
 
-        public AirportService(IRepository<Airport> airportRepository)
+        public AirportService(IUnitOfWork uow)
         {
-            _airportRepository = airportRepository;
-        }
-
-        public void Delete(int id)
-        {
-            Airport airport = _airportRepository.Get(id);
-            if (airport == null)
-            {
-                throw new Exception($"Airport with id = {id} not found");
-            }
-            _airportRepository.Remove(id);
-        }
-
-        public void Edit(int id, string name, string address, string country)
-        {
-            Airport airport = _airportRepository.Get(id);
-            if (airport == null)
-            {
-                throw new Exception($"Airport with id = {id} not found");
-            }
-            Airport newAirport = new Airport(id, name, address, country);
-            _airportRepository.Update(newAirport);
+            unitOfWork = uow;
         }
 
         public Airport Get(int id)
         {
-            Airport airport = _airportRepository.Get(id);
+            Airport airport = unitOfWork.Airports.Get(id);
             if(airport == null)
             {
                 throw new Exception($"Airport with id = {id} not found");
@@ -48,17 +27,41 @@ namespace BookingSystem.BL.Services
 
         public IEnumerable<Airport> GetAll()
         {
-            return _airportRepository.GetAll();
+            return unitOfWork.Airports.GetAll();
         }
 
         public void Save(int id, string name, string address, string country)
         {
-            Airport airport = _airportRepository.Get(id);
+            Airport airport = unitOfWork.Airports.Get(id);
             if(airport != null)
             {
                 throw new Exception($"Airport with id = {id} already exists");
             }
-            _airportRepository.Add(new Airport(id, name, address, country));
+            unitOfWork.Airports.Add(new Airport(id, name, address, country));
+            unitOfWork.Save();
+        }
+
+        public void Edit(int id, string name, string address, string country)
+        {
+            Airport airport = unitOfWork.Airports.Get(id);
+            if (airport == null)
+            {
+                throw new Exception($"Airport with id = {id} not found");
+            }
+            Airport newAirport = new Airport(id, name, address, country);
+            unitOfWork.Airports.Update(newAirport);
+            unitOfWork.Save();
+        }
+
+        public void Delete(int id)
+        {
+            Airport airport = unitOfWork.Airports.Get(id);
+            if (airport == null)
+            {
+                throw new Exception($"Airport with id = {id} not found");
+            }
+            unitOfWork.Airports.Remove(id);
+            unitOfWork.Save();
         }
     }
 }
