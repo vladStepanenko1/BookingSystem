@@ -52,6 +52,22 @@ namespace BookingSystem.Web.Controllers
         }
 
         [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create([Bind] AirportViewModel airportView)
+        {
+            if (ModelState.IsValid)
+            {
+                airportService.Save(airportView.Id, airportView.Name, airportView.Address, airportView.Country);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
         public ActionResult Edit(int id)
         {
             try

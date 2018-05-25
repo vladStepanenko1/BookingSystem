@@ -73,7 +73,7 @@ namespace BookingSystem.BL.Services
             {
                 throw new Exception($"Airport with id = {id} already exists");
             }
-            unitOfWork.Airports.Add(new Airport { AirportId = id, Name = name, Address = address, Country = country });
+            unitOfWork.Airports.Add(new Airport { Name = name, Address = address, Country = country });
             unitOfWork.Save();
         }
 
