@@ -9,9 +9,9 @@ namespace BookingSystem.DAL.Repositories
         private AirportContext db;
         private EFAirportRepository airportRepository;
 
-        public EFUnitOfWork(string connectionString)
+        public EFUnitOfWork()
         {
-            db = new AirportContext(connectionString);
+            db = new AirportContext();
         }
 
         public IRepository<Airport> Airports

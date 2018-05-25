@@ -48,7 +48,75 @@ namespace BookingSystem.Web.Controllers
             {
                 ModelState.AddModelError("Error", ex);
             }
-            return View();
+            return View(id);
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            try
+            {
+                AirportDTO airportDTO = airportService.Get(id);
+                AirportViewModel airportView = new AirportViewModel { Id = airportDTO.Id, Name = airportDTO.Name,
+                    Address = airportDTO.Address, Country = airportDTO.Country };
+                return View(airportView);
+            }
+            catch(Exception ex)
+            {
+                ModelState.AddModelError("Error", ex);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Edit(int id, [Bind]AirportViewModel airportView)
+        {
+            try
+            {
+                airportService.Edit(airportView.Id, airportView.Name, airportView.Address, airportView.Country);
+                return RedirectToAction("Index");
+            }
+            catch(Exception ex)
+            {
+                ModelState.AddModelError("Error", ex);
+            }
+            return View(airportView);
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                AirportDTO airportDTO = airportService.Get(id);
+                AirportViewModel airportView = new AirportViewModel
+                {
+                    Id = airportDTO.Id,
+                    Name = airportDTO.Name,
+                    Address = airportDTO.Address,
+                    Country = airportDTO.Country
+                };
+                return View(airportView);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ex);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeletePost(int id)
+        {
+            try
+            {
+                airportService.Delete(id);
+            }
+            catch(Exception ex)
+            {
+                ModelState.AddModelError("Error", ex);
+            }
+            return RedirectToAction("Index");
         }
     }
 }

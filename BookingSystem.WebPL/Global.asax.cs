@@ -21,8 +21,8 @@ namespace BookingSystem.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            string connectionString = GetConnectionString();
-            NinjectModule serviceModule = new ServiceModule(connectionString);
+            //string connectionString = GetConnectionString();
+            NinjectModule serviceModule = new ServiceModule();
             NinjectModule airportModule = new AirportModule();
             var kernel = new StandardKernel(serviceModule, airportModule);
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));

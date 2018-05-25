@@ -6,16 +6,9 @@ namespace BookingSystem.BL.Infrastructure
 {
     public class ServiceModule : NinjectModule
     {
-        private string connectionString;
-
-        public ServiceModule(string connString)
-        {
-            connectionString = connString;
-        }
-
         public override void Load()
         {
-            Bind<IUnitOfWork>().To<EFUnitOfWork>().WithConstructorArgument(connectionString);
+            Bind<IUnitOfWork>().To<EFUnitOfWork>();
         }
     }
 }

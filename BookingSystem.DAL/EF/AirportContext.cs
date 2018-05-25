@@ -12,7 +12,7 @@ namespace BookingSystem.DAL.EF
             Database.SetInitializer(new DbInitializer());
         }
 
-        public AirportContext(string connectionString) : base(connectionString)
+        public AirportContext() : base("ConnectionEF")
         {
         }
     }
