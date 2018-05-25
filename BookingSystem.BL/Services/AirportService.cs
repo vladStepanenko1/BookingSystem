@@ -84,8 +84,11 @@ namespace BookingSystem.BL.Services
             {
                 throw new Exception($"Airport with id = {id} not found");
             }
-            Airport newAirport = new Airport { AirportId = id, Address = address, Name = name, Country = country };
-            unitOfWork.Airports.Update(newAirport);
+            airport.Name = name;
+            airport.Address = address;
+            airport.Country = country;
+
+            unitOfWork.Airports.Update(airport);
             unitOfWork.Save();
         }
 

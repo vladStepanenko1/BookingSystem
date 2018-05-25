@@ -3,7 +3,7 @@ using System.Data.Entity;
 
 namespace BookingSystem.DAL.EF
 {
-    public class DbInitializer : DropCreateDatabaseIfModelChanges<AirportContext>
+    public class DbInitializer : DropCreateDatabaseAlways<AirportContext>
     {
         protected override void Seed(AirportContext context)
         {
