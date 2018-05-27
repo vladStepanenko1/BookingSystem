@@ -14,7 +14,7 @@ namespace BookingSystem.DAL.Repositories
             db = new AirportContext();
         }
 
-        public IRepository<Airport> Airports
+        public IRepository<Airport> AirportRepository
         {
             get
             {

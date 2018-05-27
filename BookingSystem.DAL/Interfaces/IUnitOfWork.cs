@@ -4,7 +4,7 @@ namespace BookingSystem.DAL.Interfaces
 {
     public interface IUnitOfWork
     {
-        IRepository<Airport> Airports { get; }
+        IRepository<Airport> AirportRepository { get; }
         void Save();
     }
 }

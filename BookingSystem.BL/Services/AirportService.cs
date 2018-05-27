@@ -19,7 +19,7 @@ namespace BookingSystem.BL.Services
 
         public AirportDTO Get(int id)
         {
-            Airport airport = unitOfWork.Airports.Get(id);
+            Airport airport = unitOfWork.AirportRepository.Get(id);
             if(airport == null)
             {
                 throw new Exception($"Airport with id = {id} not found");
@@ -36,7 +36,7 @@ namespace BookingSystem.BL.Services
 
         public IEnumerable<AirportDTO> GetAll()
         {
-            return unitOfWork.Airports.GetAll().Select(x => new AirportDTO
+            return unitOfWork.AirportRepository.GetAll().Select(x => new AirportDTO
             {
                 Id = x.AirportId,
                 Name = x.Name,
@@ -68,18 +68,18 @@ namespace BookingSystem.BL.Services
 
         public void Save(int id, string name, string address, string country)
         {
-            Airport airport = unitOfWork.Airports.Get(id);
+            Airport airport = unitOfWork.AirportRepository.Get(id);
             if(airport != null)
             {
                 throw new Exception($"Airport with id = {id} already exists");
             }
-            unitOfWork.Airports.Add(new Airport { Name = name, Address = address, Country = country });
+            unitOfWork.AirportRepository.Add(new Airport { Name = name, Address = address, Country = country });
             unitOfWork.Save();
         }
 
         public void Edit(int id, string name, string address, string country)
         {
-            Airport airport = unitOfWork.Airports.Get(id);
+            Airport airport = unitOfWork.AirportRepository.Get(id);
             if (airport == null)
             {
                 throw new Exception($"Airport with id = {id} not found");
@@ -88,18 +88,18 @@ namespace BookingSystem.BL.Services
             airport.Address = address;
             airport.Country = country;
 
-            unitOfWork.Airports.Update(airport);
+            unitOfWork.AirportRepository.Update(airport);
             unitOfWork.Save();
         }
 
         public void Delete(int id)
         {
-            Airport airport = unitOfWork.Airports.Get(id);
+            Airport airport = unitOfWork.AirportRepository.Get(id);
             if (airport == null)
             {
                 throw new Exception($"Airport with id = {id} not found");
             }
-            unitOfWork.Airports.Remove(id);
+            unitOfWork.AirportRepository.Remove(id);
             unitOfWork.Save();
         }
     }

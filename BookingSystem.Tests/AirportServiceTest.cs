@@ -21,7 +21,7 @@ namespace BookingSystem.Tests
         {
             mockRepository = new Mock<IRepository<Airport>>();
             mockUow = new Mock<IUnitOfWork>();
-            mockUow.Setup(m => m.Airports).Returns(mockRepository.Object);
+            mockUow.Setup(m => m.AirportRepository).Returns(mockRepository.Object);
             airportService = new AirportService(mockUow.Object);
         }
 
