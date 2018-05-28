@@ -8,7 +8,7 @@ namespace BookingSystem.BL.Infrastructure
     {
         public override void Load()
         {
-            Bind<IAirportService>().To<AirportService>().WhenInjectedInto<AirportServiceDecorator>();
+            Bind<IAirportService>().To<AirportService>().WhenInjectedInto<AirportServiceWithLogger>();
         }
     }
 }
