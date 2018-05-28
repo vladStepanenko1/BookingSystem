@@ -24,7 +24,8 @@ namespace BookingSystem.Web
             //string connectionString = GetConnectionString();
             NinjectModule serviceModule = new ServiceModule();
             NinjectModule airportModule = new AirportModule();
-            var kernel = new StandardKernel(serviceModule, airportModule);
+            NinjectModule decoratorModule = new DecoratorModule();
+            var kernel = new StandardKernel(serviceModule, airportModule, decoratorModule);
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }
 
