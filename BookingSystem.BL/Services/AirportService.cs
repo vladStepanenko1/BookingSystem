@@ -1,5 +1,6 @@
 ﻿using BookingSystem.BL.DTO;
 using BookingSystem.BL.Interfaces;
+using BookingSystem.BL.Util;
 using BookingSystem.DAL.EF.Models;
 using BookingSystem.DAL.Interfaces;
 using System;
@@ -11,10 +12,17 @@ namespace BookingSystem.BL.Services
     public class AirportService : IAirportService
     {
         private IUnitOfWork unitOfWork;
+        private EventManager eventManager;
+        private IEventListener _eventListener;
 
-        public AirportService(IUnitOfWork uow)
+        public AirportService(IUnitOfWork uow, IEventListener eventListener)
         {
             unitOfWork = uow;
+            _eventListener = eventListener;
+
+            eventManager = new EventManager();
+            eventManager.Subscribe(EventType.Saved, _eventListener);
+            eventManager.Subscribe(EventType.Deleted, _eventListener);
         }
 
         public AirportDTO Get(int id)
@@ -75,6 +83,8 @@ namespace BookingSystem.BL.Services
             }
             unitOfWork.AirportRepository.Add(new Airport { Name = name, Address = address, Country = country });
             unitOfWork.Save();
+
+            eventManager.Notify(EventType.Saved, $"Airport with id = {id} saved");
         }
 
         public void Edit(int id, string name, string address, string country)
@@ -90,6 +100,8 @@ namespace BookingSystem.BL.Services
 
             unitOfWork.AirportRepository.Update(airport);
             unitOfWork.Save();
+
+            eventManager.Notify(EventType.Saved, $"Airport with id = {id} saved");
         }
 
         public void Delete(int id)
@@ -101,6 +113,8 @@ namespace BookingSystem.BL.Services
             }
             unitOfWork.AirportRepository.Remove(id);
             unitOfWork.Save();
+
+            eventManager.Notify(EventType.Deleted, $"Airport with id = {id} deleted");
         }
     }
 }

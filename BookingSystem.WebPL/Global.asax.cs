@@ -1,4 +1,5 @@
 ﻿using BookingSystem.BL.Infrastructure;
+using BookingSystem.BL.Util;
 using BookingSystem.Web.Util;
 using Ninject;
 using Ninject.Modules;
@@ -21,31 +22,13 @@ namespace BookingSystem.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //string connectionString = GetConnectionString();
             NinjectModule serviceModule = new ServiceModule();
             NinjectModule airportModule = new AirportModule();
-            NinjectModule decoratorModule = new DecoratorModule();
-            var kernel = new StandardKernel(serviceModule, airportModule, decoratorModule);
-            DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
-        }
+            //NinjectModule decoratorModule = new DecoratorModule();
+            NinjectModule eventListenerModule = new EventListenerModule();
 
-        private string GetConnectionString()
-        {
-            Configuration rootWebConfig = WebConfigurationManager.OpenWebConfiguration("/BookingSystem.WebPL");
-            ConnectionStringSettings cnnStringObject = null;
-            if (rootWebConfig.ConnectionStrings.ConnectionStrings.Count > 0)
-            {
-                cnnStringObject = rootWebConfig.ConnectionStrings.ConnectionStrings["ConnectionEF"];
-                if (cnnStringObject == null)
-                {
-                    throw new Exception("Connection string is null");
-                }
-            }
-            else
-            {
-                throw new Exception("Does not any connection strings");
-            }
-            return cnnStringObject.ConnectionString;
+            var kernel = new StandardKernel(serviceModule, airportModule, eventListenerModule);
+            DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }
     }
 }

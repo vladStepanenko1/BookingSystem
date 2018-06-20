@@ -1,5 +1,6 @@
 ﻿using BookingSystem.BL.Interfaces;
 using BookingSystem.BL.Services;
+using BookingSystem.BL.Util;
 using BookingSystem.DAL.EF.Models;
 using BookingSystem.DAL.Interfaces;
 using Moq;
@@ -15,14 +16,26 @@ namespace BookingSystem.Tests
     {
         private Mock<IRepository<Airport>> mockRepository;
         private Mock<IUnitOfWork> mockUow;
+        private Mock<IEventListener> mockEventListener;
         private IAirportService airportService;
 
-        public AirportServiceTest()
+        [SetUp]
+        public void Setup()
         {
             mockRepository = new Mock<IRepository<Airport>>();
             mockUow = new Mock<IUnitOfWork>();
+            mockEventListener = new Mock<IEventListener>();
             mockUow.Setup(m => m.AirportRepository).Returns(mockRepository.Object);
-            airportService = new AirportService(mockUow.Object);
+            airportService = new AirportService(mockUow.Object, mockEventListener.Object);
+        }
+
+        [TearDown]
+        public void Teardown()
+        {
+            mockRepository = null;
+            mockUow = null;
+            mockEventListener = null;
+            airportService = null;
         }
 
         [Test]
@@ -54,6 +67,14 @@ namespace BookingSystem.Tests
         {
             mockRepository.Setup(m => m.Get(It.IsAny<Int32>())).Returns(() => null);
             Assert.Throws<Exception>(() => airportService.Get(-1));
+        }
+
+        [Test]
+        public void Save_GivenCorrectData_ShoudInvokeUpdateInEventListener()
+        {
+            mockRepository.Setup(m => m.Get(It.IsAny<Int32>())).Returns(() => null);
+            airportService.Save(1, "airport", "address", "country");
+            mockEventListener.Verify(m => m.Update(It.IsAny<string>()), Times.Once);
         }
 
         [Test]

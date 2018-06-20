@@ -8,7 +8,7 @@ namespace BookingSystem.Web.Util
     {
         public override void Load()
         {
-            Bind<IAirportService>().To<AirportServiceWithLogger>();
+            Bind<IAirportService>().To<AirportService>();
         }
     }
 }

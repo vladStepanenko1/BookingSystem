@@ -54,12 +54,17 @@
     <Compile Include="DTO\AirportDTO.cs" />
     <Compile Include="DTO\FlightDTO.cs" />
     <Compile Include="Infrastructure\DecoratorModule.cs" />
+    <Compile Include="Infrastructure\EventListenerModule.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Interfaces\IAirportService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AirportService.cs" />
     <Compile Include="Services\AirportServiceDecorator.cs" />
     <Compile Include="Services\AirportServiceWithLogger.cs" />
+    <Compile Include="Util\IEventListener.cs" />
+    <Compile Include="Util\EventManager.cs" />
+    <Compile Include="Util\EventType.cs" />
+    <Compile Include="Util\LogEventListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BookingSystem.DAL\BookingSystem.DAL.csproj">
