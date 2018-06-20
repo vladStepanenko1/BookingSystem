@@ -2,6 +2,9 @@
 
 namespace BookingSystem.BL.DTO
 {
+    /// <summary>
+    /// Data Transfer Object for Flight entity
+    /// </summary>
     public class FlightDTO
     {
         public int Id { get; set; }

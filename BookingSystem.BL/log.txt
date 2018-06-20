@@ -1,3 +1,4 @@
 Airport with id = 0 saved
 Airport with id = 1 deleted
 Airport with id = 0 saved
+Airport with id = 2 deleted
